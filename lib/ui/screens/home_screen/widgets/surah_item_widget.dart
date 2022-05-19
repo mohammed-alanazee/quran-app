@@ -1,4 +1,5 @@
 import 'package:quran_app/models/surah.dart';
+import 'package:quran_app/ui/screens/surah_screen/surah_screen.dart';
 import 'package:quran_app/utils/theme_provider.dart';
 import 'package:quran_app/utils/app_style.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +18,12 @@ class _SurahItemWidgetState extends State<SurahItemWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: ((context) => SurahScreen(surah: widget.surah))));
+      },
       hoverColor: Colors.transparent,
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
@@ -60,6 +66,7 @@ class _SurahItemWidgetState extends State<SurahItemWidget> {
               const Spacer(),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   // surah name in english
                   Text(

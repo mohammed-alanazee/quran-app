@@ -7,8 +7,8 @@ class ThemeProvider extends ChangeNotifier {
   bool get isDark => _isDark;
   set isDark(bool value) {
     _isDark = value;
-    notifyListeners();
     themePreferences.setThemeMode(_isDark);
+    notifyListeners();
   }
 
   ThemeProvider() {

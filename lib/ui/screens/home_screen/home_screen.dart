@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_app/providers/quran_provider.dart';
-import 'components/widgets/last_reading_widget.dart';
-import 'components/widgets/surah_listview_widget.dart';
+import 'package:quran_app/ui/widgets/loding_listview.dart';
 import '/utils/app_style.dart';
+import 'widgets/last_reading_widget.dart';
+import 'widgets/surah_listview_widget.dart';
 
-class QuranScreen extends StatefulWidget {
-  const QuranScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
-  State<QuranScreen> createState() => _QuranScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _QuranScreenState extends State<QuranScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
@@ -21,6 +22,7 @@ class _QuranScreenState extends State<QuranScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var quranProvider = context.watch<QuranProvider>();
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
@@ -29,19 +31,6 @@ class _QuranScreenState extends State<QuranScreen> {
             child: SizedBox(
               child: Column(
                 children: [
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: SizedBox(
-                      width: 30,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.search,
-                          size: 20,
-                        ),
-                        onPressed: () {},
-                      ),
-                    ),
-                  ),
                   const LastReadingWidget(),
                   const SizedBox(height: 20),
                   const Align(
@@ -51,8 +40,9 @@ class _QuranScreenState extends State<QuranScreen> {
                       style: AppStyle.titleTextStyle,
                     ),
                   ),
-                  SuarhListViewWidget(
-                      surahs: context.read<QuranProvider>().surahList),
+                  quranProvider.surahList.isNotEmpty
+                      ? SuarhListViewWidget(surahs: quranProvider.surahList)
+                      : const LodingListView()
                 ],
               ),
             ),

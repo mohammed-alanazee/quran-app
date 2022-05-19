@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:quran_app/ui/screens/home_screen/home_screen.dart';
+import 'package:quran_app/ui/screens/settings_screen/settings_screen.dart';
 import 'base/providers.dart';
-import 'ui/screens/quran_screen/quran_screen.dart';
+import 'ui/screens/home_screen/home_screen.dart';
 import 'utils/app_style.dart';
 import 'utils/theme_provider.dart';
 import 'package:provider/provider.dart';
@@ -24,28 +26,27 @@ class MyApp extends StatelessWidget {
           themeMode: theme.isDark ? ThemeMode.dark : ThemeMode.light,
           theme: AppStyle.lightTheme,
           darkTheme: AppStyle.darkTheme,
-          home: const SelectedScreen(),
+          home: const NavigationBar(),
         ),
       ),
     );
   }
 }
 
-class SelectedScreen extends StatefulWidget {
-  const SelectedScreen({Key? key}) : super(key: key);
+class NavigationBar extends StatefulWidget {
+  const NavigationBar({Key? key}) : super(key: key);
 
   @override
-  State<SelectedScreen> createState() => _SelectedScreenState();
+  State<NavigationBar> createState() => _NavigationBarState();
 }
 
-class _SelectedScreenState extends State<SelectedScreen> {
+class _NavigationBarState extends State<NavigationBar> {
   int selectedIndex = 0;
   List<Widget> screens = [
-    const QuranScreen(),
-    const Text('sss'),
-    const QuranScreen(),
-    const QuranScreen(),
-    const QuranScreen(),
+    const HomeScreen(),
+    const HomeScreen(),
+    const HomeScreen(),
+    const SettingsScreen()
   ];
   @override
   Widget build(BuildContext context) {
@@ -80,7 +81,7 @@ class _SelectedScreenState extends State<SelectedScreen> {
                 Icons.radio_outlined,
               ),
               activeIcon: Icon(Icons.radio),
-              label: 'الفواصل'),
+              label: 'راديو'),
           BottomNavigationBarItem(
             icon: Icon(
               Icons.settings_outlined,

@@ -17,21 +17,20 @@ class AppStyle {
       TextStyle(fontSize: 18, fontWeight: FontWeight.w600);
 
   static const TextStyle ayahTextStyle = TextStyle(
-    fontFamily: 'KFGQPC HAFS Uthmanic Script',
-    fontSize: 22,
+    fontSize: 16,
   );
   //
 
   //themes
   static ThemeData lightTheme = ThemeData(
-    fontFamily: 'Amiri',
+    fontFamily: 'Questv',
     primaryColor: primaryColor,
     scaffoldBackgroundColor: whiteColor,
     colorScheme: const ColorScheme.light(),
   );
 
   static ThemeData darkTheme = ThemeData(
-    fontFamily: 'Amiri',
+    fontFamily: 'Questv',
     colorScheme: const ColorScheme.dark(),
     primaryColor: primaryColor,
     scaffoldBackgroundColor: darkColor,

@@ -38,6 +38,8 @@ dependencies:
   flutter_lints: ^1.0.0
   provider: 6.0.2
   shared_preferences: ^2.0.13
+  audioplayers: ^0.20.1
+  
 
 
 dev_dependencies:
@@ -82,13 +84,13 @@ flutter:
       fonts:
         - asset: assets/fonts/UthmanicHafs_V20.ttf
         
-    - family: Amiri
+    - family: Questv
       fonts:
-        - asset: assets/fonts/Amiri-Regular.ttf 
-        - asset: assets/fonts/Amiri-Bold.ttf
-        - asset: assets/fonts/Amiri-BoldItalic.ttf
-        - asset: assets/fonts/Amiri-italic.ttf
-          style: italic
+        - asset: assets/fonts/Questv-Regular.otf 
+        - asset: assets/fonts/Questv-bold.otf
+    - family:  MyFlutterApp
+      fonts:
+        - asset: assets/fonts/MyFlutterApp.ttf       
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
