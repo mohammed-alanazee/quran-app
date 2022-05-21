@@ -35,7 +35,8 @@ class QuranApi {
           audio: js[0]['ayahs'][i]['audio'],
           ayahTextAr: js[0]['ayahs'][i]['text'],
           ayahTextEn: js[1]['ayahs'][i]['text'],
-          sajda: js[0]['ayahs'][i]['sajda'] == false ? false : true));
+          sajda: js[0]['ayahs'][i]['sajda'] == false ? false : true,
+          isMarked: false));
     }
 
     return ayahList;
@@ -44,7 +45,7 @@ class QuranApi {
   Future<List<Ayah>> fetchAyahBySuarh(int surahNum) async {
     var url =
         Uri.parse(baseUrl + 'surah/$surahNum/editions/ar.alafasy,en.asad');
-    var res = await http.get(url);
+    var res = await http.get(url).timeout(const Duration(seconds: 5));
     if (res.statusCode == 200) {
       return _convertJsonToAyahList(res.body);
     } else {

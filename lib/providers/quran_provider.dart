@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:quran_app/models/ayah.dart';
 import 'package:quran_app/models/surah.dart';
 import 'package:quran_app/services/quran_api.dart';
 
@@ -7,7 +6,7 @@ import 'package:quran_app/services/quran_api.dart';
 // like surah list ayat
 class QuranProvider extends ChangeNotifier {
   List<Surah> surahList = [];
-  List<Ayah> ayahlist = [];
+
   bool isLoding = true;
 
   // home screen //
@@ -18,12 +17,5 @@ class QuranProvider extends ChangeNotifier {
       isLoding = false;
       notifyListeners();
     }
-  }
-
-  // surah screen //
-  getAyahBySuarh(int nu) async {
-    ayahlist = [];
-    ayahlist = await QuranApi().fetchAyahBySuarh(nu);
-    notifyListeners();
   }
 }

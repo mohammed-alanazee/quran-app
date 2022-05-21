@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quran_app/providers/audio_player_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:quran_app/ui/my_flutter_app_icons.dart';
+import 'package:quran_app/ui/common/my_flutter_app_icons.dart';
 import 'package:quran_app/ui/screens/surah_screen/widgets/icon_button_widget.dart';
 
 class PlayButton extends StatefulWidget {
@@ -28,7 +28,6 @@ class _PlayButtonState extends State<PlayButton> {
   Widget build(BuildContext context) {
     var playerProvider = context.watch<AudioPlayerProvider>();
     return CustomIconButton(
-      key: UniqueKey(),
       id: widget.id,
       icon: (() {
         if (context.watch<AudioPlayerProvider>().selectedAyah == widget.id) {

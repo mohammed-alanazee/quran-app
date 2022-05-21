@@ -25,22 +25,22 @@ class _CustomIconButtonState extends State<CustomIconButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 40,
+      width: 50,
       child: Material(
         elevation: 0.0,
         color: Colors.transparent,
         child: IconButton(
           icon: widget.icon,
+          iconSize: widget.size,
+          padding: EdgeInsets.zero,
+          splashRadius: 23,
+          alignment: Alignment.center,
+          splashColor: AppStyle.primaryColor.withOpacity(0.1),
+          highlightColor: AppStyle.primaryColor.withOpacity(0.1),
+          color: AppStyle.primaryColor,
           onPressed: () {
             widget.onPressed();
           },
-          iconSize: widget.size,
-          splashRadius: 19,
-          splashColor: AppStyle.primaryColor.withOpacity(0.1),
-          highlightColor: AppStyle.primaryColor.withOpacity(0.1),
-          alignment: Alignment.center,
-          color: AppStyle.primaryColor,
-          padding: EdgeInsets.zero,
         ),
       ),
     );

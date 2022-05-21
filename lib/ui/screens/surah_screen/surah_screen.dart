@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_app/models/surah.dart';
 import 'package:quran_app/providers/audio_player_provider.dart';
-import 'package:quran_app/providers/quran_provider.dart';
-import 'package:quran_app/ui/screens/surah_screen/widgets/ayah_item_widget.dart';
+import 'package:quran_app/providers/bookmar_provider.dart';
+import 'package:quran_app/ui/screens/surah_screen/widgets/ayah_list_widget.dart';
 import 'package:quran_app/ui/screens/surah_screen/widgets/surah_des_widget.dart';
-import 'package:quran_app/ui/widgets/loding_listview.dart';
 import 'package:quran_app/utils/app_style.dart';
+import 'package:quran_app/utils/theme_preferences.dart';
 
 class SurahScreen extends StatefulWidget {
   final Surah surah;
@@ -19,13 +19,13 @@ class SurahScreen extends StatefulWidget {
 class _SurahScreenState extends State<SurahScreen> {
   @override
   void initState() {
-    context.read<QuranProvider>().getAyahBySuarh(widget.surah.number);
     super.initState();
+    context.read<BookMarkProvider>().getMarkedAyahList();
   }
 
   @override
   Widget build(BuildContext context) {
-    var quranProvider = context.watch<QuranProvider>();
+    bool theme = ThemePreferences().getThemeMode();
     var audioProvider = context.read<AudioPlayerProvider>();
     return Scaffold(
       appBar: AppBar(
@@ -34,7 +34,10 @@ class _SurahScreenState extends State<SurahScreen> {
         title: Text(widget.surah.name),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          highlightColor: Colors.transparent,
+          splashColor: Colors.transparent,
+          icon: Icon(Icons.arrow_back_ios,
+              color: theme ? AppStyle.whiteColor : AppStyle.darkColor),
           onPressed: () {
             Navigator.pop(context);
             // to turn off the audio before poping
@@ -45,8 +48,13 @@ class _SurahScreenState extends State<SurahScreen> {
         ),
         actions: [
           IconButton(
+            highlightColor: Colors.transparent,
+            splashColor: Colors.transparent,
             onPressed: () {},
-            icon: const Icon(Icons.search),
+            icon: Icon(
+              Icons.search,
+              color: theme ? AppStyle.whiteColor : AppStyle.darkColor,
+            ),
           )
         ],
       ),
@@ -59,15 +67,7 @@ class _SurahScreenState extends State<SurahScreen> {
               SurahDescription(surah: widget.surah),
               // empty space
               const SizedBox(height: 20),
-              quranProvider.ayahlist.isNotEmpty
-                  ? ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: quranProvider.ayahlist.length,
-                      itemBuilder: (context, int index) =>
-                          AyahItemWidget(ayah: quranProvider.ayahlist[index]),
-                      shrinkWrap: true,
-                    )
-                  : const LodingListView()
+              AyahListWidget(number: widget.surah.number)
             ],
           ),
         ),

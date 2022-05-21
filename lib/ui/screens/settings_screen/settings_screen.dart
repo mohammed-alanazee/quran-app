@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:quran_app/utils/theme_provider.dart';
+import 'package:quran_app/utils/theme_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -10,15 +9,14 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  ThemePreferences theme = ThemePreferences();
   @override
   Widget build(BuildContext context) {
-    var themeProvider = context.read<ThemeProvider>();
     return Scaffold(
       body: Center(
         child: ElevatedButton(
             onPressed: () {
-              themeProvider.isDark = !themeProvider.isDark;
-              print(themeProvider);
+              theme.setThemeMode(!theme.getThemeMode());
             },
             child: const Text('ChangeTheme')),
       ),

@@ -20,6 +20,7 @@ class LodingListView extends StatelessWidget {
           ),
         ),
       ),
+      physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
     );
   }

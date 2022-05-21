@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_app/providers/quran_provider.dart';
-import 'package:quran_app/ui/widgets/loding_listview.dart';
+import 'package:quran_app/ui/common/loding_listview.dart';
+
 import '/utils/app_style.dart';
 import 'widgets/last_reading_widget.dart';
 import 'widgets/surah_listview_widget.dart';

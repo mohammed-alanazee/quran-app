@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_single_quotes
+
 class Surah {
   final int number;
   final String name;
@@ -20,11 +22,11 @@ class Surah {
       numberOfAyahs: json['numberOfAyahs'],
       place: json['revelationType']);
   Map<String, dynamic> toJson() => {
-        'number': number,
-        'name': name,
-        'enName': enName,
-        'enNameTrans': enNameTrans,
-        'numberOfAyahs': numberOfAyahs,
-        'place': place,
+        "number": number,
+        "name": name,
+        "enName": enName,
+        "enNameTrans": enNameTrans,
+        "numberOfAyahs": numberOfAyahs,
+        "place": place,
       };
 }
