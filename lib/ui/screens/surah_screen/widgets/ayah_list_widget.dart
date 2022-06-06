@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_app/models/ayah.dart';
-import 'package:quran_app/services/quran_api.dart';
+import 'package:quran_app/providers/bookmar_provider.dart';
+import 'package:quran_app/services/api/quran_api.dart';
 import 'package:quran_app/ui/screens/surah_screen/widgets/ayah_item_widget.dart';
 import 'package:quran_app/ui/common/loding_listview.dart';
 
@@ -13,11 +15,10 @@ class AyahListWidget extends StatefulWidget {
 }
 
 class _AyahListWidgetState extends State<AyahListWidget> {
-  List<Ayah> markedAyahList = [];
   @override
   void initState() {
     super.initState();
-    //  BookMarkStorage().getAllBookMarked(ayahNumber:).then((value) => print(value));
+    context.read<BookMarkProvider>().getMarkedAyahList();
   }
 
   @override
@@ -31,7 +32,9 @@ class _AyahListWidgetState extends State<AyahListWidget> {
             itemCount: snapshot.data!.length,
             itemBuilder: (context, index) {
               return AyahItemWidget(
-                  ayah: snapshot.data![index], surahNumber: widget.number);
+                ayah: snapshot.data![index],
+                showAyahNumber: true,
+              );
             },
             shrinkWrap: true,
           );

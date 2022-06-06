@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_app/models/ayah.dart';
+import 'package:quran_app/providers/theme_provider.dart';
 import 'package:quran_app/ui/common/my_flutter_app_icons.dart';
 import 'package:quran_app/ui/screens/surah_screen/widgets/bookmark_button.dart';
-import 'package:quran_app/ui/screens/surah_screen/widgets/icon_button_widget.dart';
+import 'package:quran_app/ui/screens/surah_screen/widgets/copy_button.dart';
 import 'package:quran_app/ui/screens/surah_screen/widgets/play_button.dart';
 import 'package:quran_app/utils/app_style.dart';
-import 'package:quran_app/utils/theme_preferences.dart';
 
 class AyahItemWidget extends StatefulWidget {
   final Ayah ayah;
-  final int surahNumber;
-  const AyahItemWidget({
-    Key? key,
-    required this.ayah,
-    required this.surahNumber,
-  }) : super(key: key);
+
+  final bool showAyahNumber;
+
+  const AyahItemWidget(
+      {Key? key, required this.ayah, required this.showAyahNumber})
+      : super(key: key);
 
   @override
   State<AyahItemWidget> createState() => _AyahItemWidgetState();
 }
 
 class _AyahItemWidgetState extends State<AyahItemWidget> {
-  bool theme = ThemePreferences().getThemeMode();
-
   @override
   Widget build(BuildContext context) {
+    var themeProv = context.read<ThemeProvider>().isDark;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: AppStyle.paddin / 2),
       padding: const EdgeInsets.all(AppStyle.paddin / 2),
       decoration: BoxDecoration(
-        color: theme ? AppStyle.darkColor2 : AppStyle.whiteColor,
+        color: themeProv ? AppStyle.darkColor2 : AppStyle.whiteColor,
         boxShadow: <BoxShadow>[
           BoxShadow(
               blurRadius: 5,
@@ -50,26 +50,27 @@ class _AyahItemWidgetState extends State<AyahItemWidget> {
               child: Row(
                 children: [
                   // ayah number container
-                  Container(
-                    width: 33,
-                    height: 40,
-                    // design
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(7),
-                      color: AppStyle.secondaryColor,
-                    ),
-
-                    //
-                    // Counter
-                    child: Center(
-                      child: Text(
-                        '${widget.ayah.number}',
-                        style: const TextStyle(
-                            color: AppStyle.whiteColor, fontSize: 16),
-                      ),
-                    ),
-                    //
-                  ),
+                  widget.showAyahNumber
+                      ? Container(
+                          width: 33,
+                          height: 40,
+                          // design
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(7),
+                            color: AppStyle.secondaryColor,
+                          ),
+                          //
+                          // Counter
+                          child: Center(
+                            child: Text(
+                              '${widget.ayah.number}',
+                              style: const TextStyle(
+                                  color: AppStyle.whiteColor, fontSize: 16),
+                            ),
+                          ),
+                          //
+                        )
+                      : Container(),
                   // if the have sajda true
                   widget.ayah.sajda
                       ? IconButton(
@@ -84,15 +85,11 @@ class _AyahItemWidgetState extends State<AyahItemWidget> {
                   // empty space
                   const Spacer(),
                   // copy button to copy ayah
-                  CustomIconButton(
-                      icon: const Icon(Icons.copy_outlined),
-                      onPressed: () {},
-                      size: 20),
+                  CopyButton(ayahTextAr: widget.ayah.ayahTextAr),
                   PlayButton(
                       id: widget.ayah.number - 1, url: widget.ayah.audio),
                   // mark Button to save ayah in bookmark
-                  BookMarkButtonWidget(
-                      ayah: widget.ayah, surahNumber: widget.surahNumber),
+                  BookMarkButtonWidget(ayah: widget.ayah),
                 ],
               ),
             ),

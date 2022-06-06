@@ -1,6 +1,7 @@
+import 'package:provider/provider.dart';
 import 'package:quran_app/models/surah.dart';
+import 'package:quran_app/providers/theme_provider.dart';
 import 'package:quran_app/ui/screens/surah_screen/surah_screen.dart';
-import 'package:quran_app/utils/theme_preferences.dart';
 import 'package:quran_app/utils/app_style.dart';
 
 import 'package:flutter/material.dart';
@@ -14,9 +15,9 @@ class SurahItemWidget extends StatefulWidget {
 }
 
 class _SurahItemWidgetState extends State<SurahItemWidget> {
-  bool theme = ThemePreferences().getThemeMode();
   @override
   Widget build(BuildContext context) {
+    var themeProv = context.watch<ThemeProvider>().isDark;
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -33,7 +34,7 @@ class _SurahItemWidgetState extends State<SurahItemWidget> {
           margin: const EdgeInsets.all(10),
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: theme ? AppStyle.darkColor2 : AppStyle.whiteColor,
+            color: themeProv ? AppStyle.darkColor2 : AppStyle.whiteColor,
             boxShadow: <BoxShadow>[
               BoxShadow(
                   blurRadius: 5,

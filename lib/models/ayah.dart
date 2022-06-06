@@ -1,5 +1,6 @@
 class Ayah {
   final int number;
+  final int surahNumber;
   final String audio;
   final String ayahTextAr;
   final String ayahTextEn;
@@ -8,6 +9,7 @@ class Ayah {
 
   Ayah({
     required this.number,
+    required this.surahNumber,
     required this.audio,
     required this.ayahTextAr,
     required this.ayahTextEn,
@@ -16,6 +18,7 @@ class Ayah {
   });
   factory Ayah.fromJson(Map<String, dynamic> json) => Ayah(
         number: json['number'],
+        surahNumber: json['surahNumber'],
         audio: json['audio'],
         ayahTextAr: json['ayahTextAr'],
         ayahTextEn: json['ayahTextEn'],
@@ -24,6 +27,7 @@ class Ayah {
       );
   Map<String, dynamic> toJson() => {
         'number': number,
+        'surahNumber': surahNumber,
         'audio': audio,
         'ayahTextAr': ayahTextAr,
         'ayahTextEn': ayahTextEn,

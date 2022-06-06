@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quran_app/providers/audio_player_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_app/ui/common/my_flutter_app_icons.dart';
-import 'package:quran_app/ui/screens/surah_screen/widgets/icon_button_widget.dart';
+import 'package:quran_app/ui/screens/surah_screen/widgets/custom_icon_buttton.dart';
 
 class PlayButton extends StatefulWidget {
   final int id;

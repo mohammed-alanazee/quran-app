@@ -1,14 +1,13 @@
-import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ThemePreferences {
-  var box = Hive.box('darkMode');
-
-  bool getThemeMode() {
-    var darkMode = box.get('darkMode', defaultValue: true);
-    return darkMode;
+  void setThemeMode(bool isDark) async {
+    SharedPreferences setThemeMode = await SharedPreferences.getInstance();
+    setThemeMode.setBool('isDark', isDark);
   }
 
-  void setThemeMode(bool value) {
-    box.put('darkMode', value);
+  Future<bool> getThemeMode() async {
+    SharedPreferences getThemeMode = await SharedPreferences.getInstance();
+    return getThemeMode.getBool('isDark') ?? true;
   }
 }
