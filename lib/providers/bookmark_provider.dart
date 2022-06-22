@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quran_app/models/ayah.dart';
-import 'package:quran_app/services/local_storage.dart';
+import 'package:quran_app/services/storage/bookmark_storage.dart';
 
 class BookMarkProvider extends ChangeNotifier {
   List<Ayah> markedAyahList = [];
@@ -17,24 +17,18 @@ class BookMarkProvider extends ChangeNotifier {
     return isMarked;
   }
 
-  void addAyahToBookMark(
-    Ayah ayah,
-  ) {
+  void addAyahToBookMark(Ayah ayah) {
     bool isMarked =
-        !markedAyahList.any((element) => element.ayahTextAr == ayah.ayahTextAr);
+        markedAyahList.any((element) => element.ayahTextAr == ayah.ayahTextAr);
 
-    if (isMarked) {
+    if (!isMarked) {
       markedAyahList.add(ayah);
-      BookMarkStorage().add(
-        ayah,
-      );
+      BookMarkStorage().add(ayah);
       notifyListeners();
     }
   }
 
-  deleteMarkedAyah(
-    Ayah ayah,
-  ) {
+  deleteMarkedAyah(Ayah ayah) {
     BookMarkStorage().delete(ayah);
     markedAyahList
         .removeWhere((element) => element.ayahTextAr == ayah.ayahTextAr);

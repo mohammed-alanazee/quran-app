@@ -2,41 +2,48 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 
 class AudioPlayerProvider extends ChangeNotifier {
+  String _url = '';
+  String get url => _url;
+  set url(String value) {
+    _url = value;
+    notifyListeners();
+  }
+
   bool _isPlaying = false;
   bool get isPlaying => _isPlaying;
-
-  int? _selectedAyah;
-  int? get selectedAyah => _selectedAyah;
   set isPlaying(bool value) {
     _isPlaying = value;
     notifyListeners();
   }
 
-  set selectedAyah(int? id) {
-    _selectedAyah = id;
+  int? _index;
+  int? get index => _index;
+  set index(int? value) {
+    _index = value;
     notifyListeners();
   }
 
   AudioPlayer advancedPlayer = AudioPlayer();
-  changeSelectedAyah(int nu) {
-    selectedAyah = nu;
+  void stopAudio() {
+    index = null;
+    _isPlaying = false;
+    advancedPlayer.stop();
     notifyListeners();
   }
 
-  controllerAudio(String url) async {
+  void playAudio(String urlString) async {
+    url = urlString;
     if (!_isPlaying) {
       _isPlaying = true;
-      advancedPlayer.play(url);
+      advancedPlayer.play(urlString);
       advancedPlayer.onPlayerCompletion.listen((event) {
         _isPlaying = false;
-        selectedAyah = null;
+        index = null;
         notifyListeners();
       });
-    } else {
-      selectedAyah = null;
-      _isPlaying = false;
-      advancedPlayer.stop();
       notifyListeners();
+    } else {
+      stopAudio();
     }
   }
 }

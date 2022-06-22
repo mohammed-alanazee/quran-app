@@ -33,23 +33,11 @@ class _SurahScreenState extends State<SurahScreen> {
               color: themeProv ? AppStyle.whiteColor : AppStyle.darkColor),
           onPressed: () {
             Navigator.pop(context);
-            // to turn off the audio before poping
-            audioProvider.selectedAyah = null;
+            audioProvider.index = null;
             audioProvider.isPlaying = false;
             audioProvider.advancedPlayer.stop();
           },
         ),
-        // actions: [
-        //   IconButton(
-        //     highlightColor: Colors.transparent,
-        //     splashColor: Colors.transparent,
-        //     onPressed: () {},
-        //     icon: Icon(
-        //       Icons.search,
-        //       color: themeProv ? AppStyle.whiteColor : AppStyle.darkColor,
-        //     ),
-        //   )
-        // ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

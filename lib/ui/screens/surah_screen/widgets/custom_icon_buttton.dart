@@ -4,12 +4,9 @@ import 'package:quran_app/utils/app_style.dart';
 class CustomIconButton extends StatefulWidget {
   final Icon icon;
   final double size;
-  final int? id;
-
   final VoidCallback onPressed;
   const CustomIconButton({
     Key? key,
-    this.id,
     required this.icon,
     required this.onPressed,
     required this.size,
@@ -20,8 +17,6 @@ class CustomIconButton extends StatefulWidget {
 }
 
 class _CustomIconButtonState extends State<CustomIconButton> {
-  bool isPressed = false;
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(

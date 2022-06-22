@@ -5,16 +5,19 @@ import 'package:quran_app/providers/theme_provider.dart';
 import 'package:quran_app/ui/common/my_flutter_app_icons.dart';
 import 'package:quran_app/ui/screens/surah_screen/widgets/bookmark_button.dart';
 import 'package:quran_app/ui/screens/surah_screen/widgets/copy_button.dart';
-import 'package:quran_app/ui/screens/surah_screen/widgets/play_button.dart';
+import 'package:quran_app/ui/common/play_button.dart';
 import 'package:quran_app/utils/app_style.dart';
 
 class AyahItemWidget extends StatefulWidget {
   final Ayah ayah;
-
+  final int index;
   final bool showAyahNumber;
 
   const AyahItemWidget(
-      {Key? key, required this.ayah, required this.showAyahNumber})
+      {Key? key,
+      required this.ayah,
+      required this.index,
+      required this.showAyahNumber})
       : super(key: key);
 
   @override
@@ -86,8 +89,7 @@ class _AyahItemWidgetState extends State<AyahItemWidget> {
                   const Spacer(),
                   // copy button to copy ayah
                   CopyButton(ayahTextAr: widget.ayah.ayahTextAr),
-                  PlayButton(
-                      id: widget.ayah.number - 1, url: widget.ayah.audio),
+                  PlayButton(index: widget.index, url: widget.ayah.audio),
                   // mark Button to save ayah in bookmark
                   BookMarkButtonWidget(ayah: widget.ayah),
                 ],

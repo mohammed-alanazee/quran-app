@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_app/models/ayah.dart';
-import 'package:quran_app/providers/bookmar_provider.dart';
+import 'package:quran_app/providers/bookmark_provider.dart';
 import 'package:quran_app/ui/screens/surah_screen/widgets/custom_icon_buttton.dart';
 
 class BookMarkButtonWidget extends StatefulWidget {
@@ -22,7 +22,6 @@ class _BookMarkButtonWidgetState extends State<BookMarkButtonWidget> {
     var prov = context.watch<BookMarkProvider>();
     var isMarked = prov.getMarkedAyah(widget.ayah.ayahTextAr);
     return CustomIconButton(
-      id: widget.ayah.number - 1,
       icon: isMarked
           ? const Icon(Icons.bookmark)
           : const Icon(Icons.bookmark_outline_outlined),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quran_app/models/ayah.dart';
-import 'package:quran_app/providers/bookmar_provider.dart';
+import 'package:quran_app/providers/bookmark_provider.dart';
 import 'package:quran_app/services/api/quran_api.dart';
 import 'package:quran_app/ui/screens/surah_screen/widgets/ayah_item_widget.dart';
 import 'package:quran_app/ui/common/loding_listview.dart';
@@ -33,6 +33,7 @@ class _AyahListWidgetState extends State<AyahListWidget> {
             itemBuilder: (context, index) {
               return AyahItemWidget(
                 ayah: snapshot.data![index],
+                index: index,
                 showAyahNumber: true,
               );
             },
