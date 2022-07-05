@@ -13,7 +13,6 @@ class RadioApi {
     );
     if (res.statusCode == 200) {
       List<dynamic> json = jsonDecode(utf8.decode(res.bodyBytes))['Radios'];
-      print(json);
       return json.map((e) => RadioModel.fromJson(e)).toList();
     } else {
       throw 'error';

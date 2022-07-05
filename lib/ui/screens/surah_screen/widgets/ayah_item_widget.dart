@@ -33,12 +33,7 @@ class _AyahItemWidgetState extends State<AyahItemWidget> {
       padding: const EdgeInsets.all(AppStyle.paddin / 2),
       decoration: BoxDecoration(
         color: themeProv ? AppStyle.darkColor2 : AppStyle.whiteColor,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              blurRadius: 5,
-              spreadRadius: 1,
-              color: Colors.black.withOpacity(0.1))
-        ],
+        boxShadow: AppStyle.shadow,
         borderRadius: BorderRadius.circular(10),
       ),
       //

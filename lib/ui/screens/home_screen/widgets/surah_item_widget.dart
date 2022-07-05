@@ -1,6 +1,7 @@
 import 'package:provider/provider.dart';
 import 'package:quran_app/models/surah.dart';
 import 'package:quran_app/providers/theme_provider.dart';
+import 'package:quran_app/services/storage/last_read_surah.dart';
 import 'package:quran_app/ui/screens/surah_screen/surah_screen.dart';
 import 'package:quran_app/utils/app_style.dart';
 
@@ -17,15 +18,17 @@ class SurahItemWidget extends StatefulWidget {
 class _SurahItemWidgetState extends State<SurahItemWidget> {
   @override
   Widget build(BuildContext context) {
+    Surah surah = widget.surah;
     var themeProv = context.watch<ThemeProvider>().isDark;
     return InkWell(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: ((context) => SurahScreen(surah: widget.surah)),
+            builder: ((context) => SurahScreen(surah: surah)),
           ),
         );
+        LastReadSurah().add(surah);
       },
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
@@ -35,12 +38,7 @@ class _SurahItemWidgetState extends State<SurahItemWidget> {
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: themeProv ? AppStyle.darkColor2 : AppStyle.whiteColor,
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  blurRadius: 5,
-                  spreadRadius: 1,
-                  color: Colors.black.withOpacity(0.1))
-            ],
+            boxShadow: AppStyle.shadow,
             borderRadius: BorderRadius.circular(10),
           ),
           child: Directionality(
@@ -55,14 +53,14 @@ class _SurahItemWidgetState extends State<SurahItemWidget> {
                     color: AppStyle.secondaryColor),
                 child: Center(
                     child: Text(
-                  '${widget.surah.number}',
+                  '${surah.number}',
                   style:
                       const TextStyle(color: AppStyle.whiteColor, fontSize: 14),
                 )),
               ),
               const SizedBox(width: 5),
               // surah name
-              Text(widget.surah.name, style: AppStyle.bodyTextStyle),
+              Text(surah.name, style: AppStyle.bodyTextStyle),
               const Spacer(),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -70,14 +68,14 @@ class _SurahItemWidgetState extends State<SurahItemWidget> {
                 children: [
                   // surah name in english
                   Text(
-                    widget.surah.enName,
+                    surah.enName,
                     style: const TextStyle(
                         fontSize: 16, fontWeight: FontWeight.w500),
                     textAlign: TextAlign.left,
                   ),
                   // surah name translate
                   Text(
-                    '${widget.surah.enNameTrans} (${widget.surah.numberOfAyahs})',
+                    '${surah.enNameTrans} (${surah.numberOfAyahs})',
                     style: const TextStyle(fontSize: 12),
                     textAlign: TextAlign.left,
                   ),

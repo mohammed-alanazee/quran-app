@@ -24,9 +24,9 @@ class Surah {
   Map<String, dynamic> toJson() => {
         "number": number,
         "name": name,
-        "enName": enName,
-        "enNameTrans": enNameTrans,
+        "englishName": enName,
+        "englishNameTranslation": enNameTrans,
         "numberOfAyahs": numberOfAyahs,
-        "place": place,
+        "revelationType": place,
       };
 }

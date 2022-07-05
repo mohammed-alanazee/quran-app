@@ -23,6 +23,13 @@ class AudioPlayerProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  String intiializUrl(String url, int number) {
+    String _url = url.endsWith('/') ? url : url + '/';
+    if (number < 10) return _url + '00$number.mp3';
+    if (number < 100) return _url + '0$number.mp3';
+    return _url + '$number.mp3';
+  }
+
   AudioPlayer advancedPlayer = AudioPlayer();
   void stopAudio() {
     index = null;

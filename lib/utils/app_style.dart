@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 class AppStyle {
   static const double paddin = 20.0;
+  static List<BoxShadow> shadow = <BoxShadow>[
+    BoxShadow(
+        blurRadius: 5, spreadRadius: 1, color: Colors.black.withOpacity(0.1))
+  ];
   // colors
   static const Color primaryColor = Color(0xFF34C986);
   static const Color secondaryColor = Color(0xFF29B375);

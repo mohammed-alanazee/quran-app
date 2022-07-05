@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:quran_app/models/surah.dart';
 import 'package:quran_app/models/surah_list.dart';
 import 'package:quran_app/providers/theme_provider.dart';
+import 'package:quran_app/services/storage/last_read_surah.dart';
 import '/utils/app_style.dart';
 import 'widgets/last_reading_widget.dart';
 import 'widgets/surah_listview_widget.dart';
@@ -15,9 +16,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late Future<Surah?> lastReadSurah;
   final TextEditingController searchBarController = TextEditingController();
   List<Surah> surahs = surahsData;
   bool isOpened = false;
+  @override
+  void initState() {
+    super.initState();
+    lastReadSurah = LastReadSurah().getLastRead();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,7 +117,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 12,
                   ),
                   searchBarController.text == ''
-                      ? const LastReadingWidget()
+                      ? FutureBuilder<Surah?>(
+                          future: lastReadSurah,
+                          builder: (BuildContext context,
+                              AsyncSnapshot<Surah?> snapshot) {
+                            if (snapshot.hasData) {
+                              return LastReadSurahWidget(
+                                surah: snapshot.data,
+                                isHidden: false,
+                              );
+                            } else {
+                              return const LastReadSurahWidget(
+                                isHidden: true,
+                              );
+                            }
+                          })
                       : Container(),
                   const SizedBox(height: 20),
                   searchBarController.text == ''
@@ -121,7 +143,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         )
                       : Container(),
-                  SuarhListViewWidget(surahs: surahs)
+                  SuarhListViewWidget(
+                    surahs: surahs,
+                  )
                 ],
               ),
             ),

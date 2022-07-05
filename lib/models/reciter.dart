@@ -1,5 +1,5 @@
 class Reciter {
-  final String id;
+  final int id;
   final String name;
   final String server;
   final String rewaya;
@@ -13,7 +13,7 @@ class Reciter {
     required this.surahs,
   });
   factory Reciter.fromJson(Map<String, dynamic> json) => Reciter(
-        id: json['id'],
+        id: int.parse(json['id']),
         name: json['name'],
         server: json['Server'],
         rewaya: json['rewaya'],

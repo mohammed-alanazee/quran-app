@@ -5,6 +5,7 @@ import 'package:quran_app/providers/radio_provider.dart';
 import 'package:quran_app/ui/common/loding_listview.dart';
 import 'package:quran_app/ui/screens/radio_screen/widgets/custom_toggle_widget.dart';
 import 'package:quran_app/ui/screens/radio_screen/widgets/radio_widget.dart';
+import 'package:quran_app/ui/screens/radio_screen/widgets/reciters_listview.dart';
 import 'package:quran_app/utils/app_style.dart';
 
 class RadioScreen extends StatefulWidget {
@@ -15,6 +16,7 @@ class RadioScreen extends StatefulWidget {
 }
 
 class _RadioScreenState extends State<RadioScreen> {
+  bool isRadio = true;
   @override
   void initState() {
     super.initState();
@@ -23,35 +25,48 @@ class _RadioScreenState extends State<RadioScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<RadioModel> sur = context.watch<RadioProvider>().radios;
+    List<RadioModel> radiosList = context.watch<RadioProvider>().radios;
 
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: ListView(
+          shrinkWrap: true,
           padding: const EdgeInsets.all(AppStyle.paddin),
-          child: ListView(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            children: [
-              const Text(
-                'الراديو',
-                style: AppStyle.titleTextStyle,
-                textAlign: TextAlign.end,
+          children: [
+            const Text(
+              'الراديو',
+              style: AppStyle.titleTextStyle,
+              textAlign: TextAlign.end,
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Center(
+              child: CustomToggleWidget(
+                isRadio: isRadio,
+                onPressed: () {
+                  setState(() => isRadio = !isRadio);
+                },
               ),
-              const CustomToggleWidget(),
-              sur.isEmpty
-                  ? const LodingListView()
-                  : ListView.builder(
-                      itemBuilder: (context, index) => RadioWidget(
-                        radioModel: sur[index],
-                        index: index,
-                      ),
-                      itemCount: sur.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                    )
-            ],
-          ),
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            Visibility(
+                visible: isRadio,
+                child: radiosList.isNotEmpty
+                    ? ListView.builder(
+                        itemBuilder: (context, index) => RadioWidget(
+                          radioModel: radiosList[index],
+                          index: index,
+                        ),
+                        itemCount: radiosList.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                      )
+                    : const LodingListView(),
+                replacement: const RecitersListView())
+          ],
         ),
       ),
     );
