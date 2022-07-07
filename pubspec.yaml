@@ -39,9 +39,8 @@ dependencies:
   provider: 6.0.2
   shared_preferences: ^2.0.15
   audioplayers: ^0.20.1
-  dropdown_search: ^3.0.1
-  google_fonts: ^3.0.0
-  
+  flutter_local_notifications: ^9.5.1
+  connectivity_plus: ^2.3.5
 
 
 dev_dependencies:
@@ -82,10 +81,6 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: KFGQPC HAFS Uthmanic Script
-      fonts:
-        - asset: assets/fonts/UthmanicHafs_V20.ttf
-        
     - family: Questv
       fonts:
         - asset: assets/fonts/Questv-Regular.otf 

@@ -117,21 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 12,
                   ),
                   searchBarController.text == ''
-                      ? FutureBuilder<Surah?>(
-                          future: lastReadSurah,
-                          builder: (BuildContext context,
-                              AsyncSnapshot<Surah?> snapshot) {
-                            if (snapshot.hasData) {
-                              return LastReadSurahWidget(
-                                surah: snapshot.data,
-                                isHidden: false,
-                              );
-                            } else {
-                              return const LastReadSurahWidget(
-                                isHidden: true,
-                              );
-                            }
-                          })
+                      ? const LastReadSurahWidget()
                       : Container(),
                   const SizedBox(height: 20),
                   searchBarController.text == ''

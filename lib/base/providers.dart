@@ -1,6 +1,7 @@
 import 'package:quran_app/providers/audio_player_provider.dart';
 import 'package:quran_app/providers/bookmark_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:quran_app/providers/last_read_surah_provider.dart';
 import 'package:quran_app/providers/radio_provider.dart';
 import 'package:quran_app/providers/theme_provider.dart';
 
@@ -16,5 +17,8 @@ List<ChangeNotifierProvider> providers = [
   ),
   ChangeNotifierProvider<RadioProvider>(
     create: (_) => RadioProvider(),
-  )
+  ),
+  ChangeNotifierProvider<LastReadSurahProvider>(
+    create: (_) => LastReadSurahProvider(),
+  ),
 ];

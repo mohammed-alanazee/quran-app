@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quran_app/models/surah.dart';
+import 'package:quran_app/providers/last_read_surah_provider.dart';
 import 'package:quran_app/ui/screens/surah_screen/surah_screen.dart';
 import 'package:quran_app/utils/app_style.dart';
 
 class LastReadSurahWidget extends StatefulWidget {
-  final bool isHidden;
-  final Surah? surah;
   const LastReadSurahWidget({
     Key? key,
-    this.surah,
-    required this.isHidden,
   }) : super(key: key);
 
   @override
@@ -18,17 +16,23 @@ class LastReadSurahWidget extends StatefulWidget {
 
 class _LastReadSurahWidgetState extends State<LastReadSurahWidget> {
   @override
+  void initState() {
+    super.initState();
+    context.read<LastReadSurahProvider>().getLastReadSurah();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    Surah? surah = widget.surah;
-    bool isHidden = widget.isHidden;
+    Surah? surah = context.watch<LastReadSurahProvider>().surah;
+
     // last reading widget
     return InkWell(
-      onTap: () => isHidden
+      onTap: () => surah == null
           ? null
           : Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: ((context) => SurahScreen(surah: surah!))),
+                  builder: ((context) => SurahScreen(surah: surah))),
             ),
       child: Container(
         //style
@@ -60,7 +64,7 @@ class _LastReadSurahWidgetState extends State<LastReadSurahWidget> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                isHidden
+                surah == null
                     ? Container()
                     : Text('أخر ما قرأت',
                         style: TextStyle(
@@ -68,7 +72,7 @@ class _LastReadSurahWidgetState extends State<LastReadSurahWidget> {
                             fontWeight: FontWeight.bold,
                             color: Colors.white.withOpacity(0.7))),
                 const SizedBox(height: 15),
-                isHidden
+                surah == null
                     ? const SizedBox(
                         width: 150,
                         child: Divider(
@@ -76,11 +80,11 @@ class _LastReadSurahWidgetState extends State<LastReadSurahWidget> {
                           color: Color(0x9CEAEAEA),
                         ),
                       )
-                    : Text(surah!.name,
+                    : Text(surah.name,
                         style: AppStyle.titleTextStyle
                             .copyWith(color: AppStyle.whiteColor)),
-                isHidden ? const SizedBox(height: 15) : const SizedBox(),
-                isHidden
+                surah == null ? const SizedBox(height: 15) : const SizedBox(),
+                surah == null
                     ? const SizedBox(
                         width: 130,
                         child: Divider(
@@ -88,7 +92,7 @@ class _LastReadSurahWidgetState extends State<LastReadSurahWidget> {
                           color: Color(0x9CEAEAEA),
                         ),
                       )
-                    : Text(surah!.enName,
+                    : Text(surah.enName,
                         style: TextStyle(
                             fontSize: 15, color: Colors.white.withOpacity(0.7)))
               ],

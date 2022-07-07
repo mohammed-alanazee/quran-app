@@ -1,7 +1,7 @@
 import 'package:provider/provider.dart';
 import 'package:quran_app/models/surah.dart';
+import 'package:quran_app/providers/last_read_surah_provider.dart';
 import 'package:quran_app/providers/theme_provider.dart';
-import 'package:quran_app/services/storage/last_read_surah.dart';
 import 'package:quran_app/ui/screens/surah_screen/surah_screen.dart';
 import 'package:quran_app/utils/app_style.dart';
 
@@ -21,14 +21,14 @@ class _SurahItemWidgetState extends State<SurahItemWidget> {
     Surah surah = widget.surah;
     var themeProv = context.watch<ThemeProvider>().isDark;
     return InkWell(
-      onTap: () {
+      onTap: () async {
+        context.read<LastReadSurahProvider>().updateLastReadSurah(surah);
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: ((context) => SurahScreen(surah: surah)),
           ),
         );
-        LastReadSurah().add(surah);
       },
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
