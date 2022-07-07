@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.quran_app">
+   <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="quran_app"
+        android:label="القرآن الكريم"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
