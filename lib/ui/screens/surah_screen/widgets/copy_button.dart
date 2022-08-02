@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:quran_app/models/ayah.dart';
 import 'package:quran_app/ui/screens/surah_screen/widgets/custom_icon_buttton.dart';
 import 'package:quran_app/utils/app_style.dart';
 
 class CopyButton extends StatelessWidget {
   const CopyButton({
     Key? key,
-    required this.ayahTextAr,
+    required this.ayah,
   }) : super(key: key);
 
-  final String ayahTextAr;
+  final Ayah ayah;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,9 @@ class CopyButton extends StatelessWidget {
               ),
             ),
           );
-          Clipboard.setData(ClipboardData(text: ayahTextAr));
+          Clipboard.setData(ClipboardData(
+              text:
+                  '[${ayah.ayahTextAr} \n\n\n ${ayah.ayahTextEn}][${ayah.number}:${ayah.surahNumber}]'));
         },
         size: 20);
   }

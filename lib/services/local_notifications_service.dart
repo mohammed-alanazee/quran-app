@@ -1,17 +1,14 @@
 import 'dart:io' show Platform;
-import 'dart:math';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 // ignore: constant_identifier_names
 const channel_id = '1';
-List<String> ayahs = [
-  'إِنَّ مَعَ الْعُسْرِ يُسْرًا',
-  'وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ',
-  'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ',
-  'فَاذْكُرُونِي أَذْكُرْكُمْ وَاشْكُرُوا لِي وَلَا تَكْفُرُونِ',
-  'الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُمْ بِذِكْرِ اللَّهِ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ',
+List<String> athkar = [
+  'سبحان الله وبحمده',
+  'استغفر الله العظيم',
+  'لا إله إلا الله'
 ];
 
 class LoaclNotificationService {
@@ -44,7 +41,10 @@ class LoaclNotificationService {
 
     _initializeLocalNotificationPlugin(initializationSettings);
     tz.initializeTimeZones();
-    scheduleDaily10Notification();
+    scheduleDailyNotification(athkar[0], _scheduleTime(10));
+    scheduleDailyNotification(athkar[1], _scheduleTime(20));
+    scheduleDailyNotification(athkar[2], _scheduleTime(15));
+    scheduleDailyNotification(athkar[0], _scheduleTime(2));
   }
 
   void _initializeLocalNotificationPlugin(
@@ -59,19 +59,19 @@ class LoaclNotificationService {
         .requestPermissions(alert: true, badge: true, sound: true);
   }
 
-  Future<void> scheduleDaily10Notification() async {
+  Future<void> scheduleDailyNotification(String thekr, hour) async {
     await flutterLocalNotificationsPlugin.zonedSchedule(
       0,
-      ayahs[Random().nextInt(ayahs.length - 1)],
+      thekr,
       '',
-      _nextInstanceOfTenAM(),
+      hour,
       const NotificationDetails(
         // android
         android: AndroidNotificationDetails(
           channel_id,
-          'Quran App',
-          importance: Importance.max,
-          priority: Priority.max,
+          'القرآن الكريم',
+          importance: Importance.high,
+          priority: Priority.high,
         ),
         // ios
         iOS: IOSNotificationDetails(
@@ -92,14 +92,14 @@ class LoaclNotificationService {
     await flutterLocalNotificationsPlugin.cancelAll();
   }
 
-  tz.TZDateTime _nextInstanceOfTenAM() {
+  tz.TZDateTime _scheduleTime(int hour) {
     final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledDate = tz.TZDateTime(
       tz.local,
       now.year,
       now.month,
       now.day,
-      10,
+      hour,
     );
     if (scheduledDate.isBefore(now)) {
       scheduledDate = scheduledDate.add(const Duration(seconds: 1));

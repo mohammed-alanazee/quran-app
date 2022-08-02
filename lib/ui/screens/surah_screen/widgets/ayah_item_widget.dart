@@ -83,7 +83,7 @@ class _AyahItemWidgetState extends State<AyahItemWidget> {
                   // empty space
                   const Spacer(),
                   // copy button to copy ayah
-                  CopyButton(ayahTextAr: widget.ayah.ayahTextAr),
+                  CopyButton(ayah: widget.ayah),
                   PlayButton(index: widget.index, url: widget.ayah.audio),
                   // mark Button to save ayah in bookmark
                   BookMarkButtonWidget(ayah: widget.ayah),
