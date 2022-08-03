@@ -42,8 +42,8 @@ class AudioPlayerProvider extends ChangeNotifier {
     url = urlString;
     if (!_isPlaying) {
       _isPlaying = true;
-      advancedPlayer.play(urlString);
-      advancedPlayer.onPlayerCompletion.listen((event) {
+      advancedPlayer.play(UrlSource(url));
+      advancedPlayer.onPlayerComplete.listen((event) {
         _isPlaying = false;
         index = null;
         notifyListeners();
