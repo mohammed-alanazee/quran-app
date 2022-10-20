@@ -24,13 +24,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool hasIntrent = false;
+  bool hasIntrent = true;
   @override
   void initState() {
     super.initState();
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      if (result == ConnectivityResult.none ||
-          result == ConnectivityResult.bluetooth) {
+      if (result == ConnectivityResult.none) {
         setState(() => hasIntrent = false);
       } else {
         setState(() => hasIntrent = true);
